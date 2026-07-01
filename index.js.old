@@ -1,0 +1,267 @@
+let name ='Michael';
+let age = 30;
+let city = 'New York';
+const price = 19.99
+const isStudent = true
+name = 'Joy';
+console.log(`My name is ${name}, I am ${age} years old and I live in ${city}. the ${price} is the price of the item. Is student? ${isStudent}`);
+const arr = ['john', 1, true, 'doe', 2, false, 'smith', 3 , true] ;
+const student1 = arr[6];
+
+console.log(student1);
+
+const mylength = arr.length;
+console.log(mylength);
+
+===================================
+
+const student1 = {
+  name: "John Doe",
+  age: 20,
+  major: "Computer Science",
+  courses: ["Algorithms", "Data Structures", "Web Development"]
+};
+
+const student2 = {
+  name: "Jane Smith",
+  age: 22,
+  major: "Mathematics",
+  courses: ["Calculus", "Linear Algebra", "Statistics"]
+};
+
+const student3 = {
+  name: "Alice Johnson",
+  age: 21,
+  major: "Physics",
+  courses: ["Quantum Mechanics", "Electromagnetism", "Thermodynamics"]
+};
+const students = [student1, student2, student3];
+
+
+console.log(student3.courses[1]);
+
+console.log(students[2].courses[2]);
+====================================
+
+const maths = require('./maths');
+console.log(maths.add(5, 3));
+console.log(maths.subtract(5, 3));
+console.log(maths.name);
+
+========
+\\another but not optimized way
+const { add, subtract, name, multiply } = require('./maths');
+console.log(add(5, 3));
+console.log(subtract(5, 3));
+console.log(name);
+console.log(multiply(5, 3));
+
+=============
+
+End of Class 1
+
+=====
+
+Class 2 
+
+=========
+// math.js 1
+
+
+function add (a, b) {
+    return a + b;
+}
+
+function subtract (a, b) {
+    return a - b;
+}
+
+function multiply (a, b) {
+    return a * b;
+} 
+const name = "micheal";
+
+module.exports = {
+    add,
+    subtract,
+    multiply,
+    name
+};
+
+//====
+//raw-server.js
+
+const http = require('http');
+
+const server = http.createServer((req, res) => {
+ if (req.method === 'GET' && req.url === '/') {
+    res.writeHead(200, { 'Content-Type': 'text/plain' });
+    res.end('Hello, World! from raw node\n');
+    } else {
+        res.writeHead(404, { 'Content-Type': 'text/plain' });
+        res.end('Not Found\n');
+    }
+});
+
+const PORT = 3000;
+server.listen(PORT, () => {
+    console.log(`Raw Server is running on http://localhost:${PORT}`);
+});//=======================
+// express.js loading an app
+
+const express = require('express');
+const app = express()
+const port = 3000
+
+app.get('/', (req, res) => {
+  res.send('Hello World! from express')
+})
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`)
+})
+
+//=================//=======================
+// express.js loading an app with middle ware
+
+const express = require('express');
+const app = express()
+const port = 3000
+
+app.use(express.json());
+
+app.use((req, res, next) => {
+  //logs every request
+  console.log(`${req.method} ${req.url} - ${new Date()}`);
+  next();// Pass to next handler (required!)
+});
+
+app.use((req, res, next) => {
+  //logs every request
+  console.log(`Hello, I am here to log every request`);
+  next();// Pass to next handler (required!)
+});
+app.post('/echo', (req, res) => {
+  //console.log(req.body);
+  res.json({echoed : req.body}); //req.body available
+
+});
+
+app.get('/', (req, res) => {
+  res.send('Hello World! from express')
+});
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`)
+});
+
+//=================//=======================
+// express.js loading an app with middleware and new changes
+
+const express = require('express');
+const app = express()
+const port = 3000
+
+app.use(express.json());
+
+app.use((req, res, next) => {
+  //logs every request
+  console.log(`${req.method} ${req.url} - ${new Date()}`);
+  next();// Pass to next handler (required!)
+});
+
+app.use((req, res, next) => {
+  //logs every request
+  console.log(`Hello, I am here to log every request`);
+  next();// Pass to next handler (required!)
+});
+app.post('/echo', (req, res) => {
+  //console.log(req.body);
+  res.json({echoed : req.body}); //req.body available
+
+});
+
+app.get('/user/:id', (req, res) => {
+    const id = req.params.id;
+    console.log(id);
+    res.send(id);
+});
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`)
+});
+
+//=================//=======================
+// express.js loading an app with middleware and new search
+
+const express = require('express');
+const app = express()
+const port = 3000
+
+app.use(express.json());
+
+app.use((req, res, next) => {
+  //logs every request
+  console.log(`${req.method} ${req.url} - ${new Date()}`);
+  next();// Pass to next handler (required!)
+});
+
+app.use((req, res, next) => {
+  //logs every request
+  console.log(`Hello, I am here to log every request`);
+  next();// Pass to next handler (required!)
+});
+app.post('/echo', (req, res) => {
+  //console.log(req.body);
+  res.json({echoed : req.body}); //req.body available
+
+});
+
+app.get('/search', (req, res) => {
+    const id = req.query.id;
+    console.log(id);
+    res.send(id);
+});
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`)
+});
+
+//=================//=======================
+// express.js loading an app with middleware and new search + params
+require('dotenv').config();
+
+const express = require('express');
+const app = express()
+const port = process.env.PORT || 5000;
+
+app.use(express.json());
+
+app.use((req, res, next) => {
+  //logs every request
+  console.log(`${req.method} ${req.url} - ${new Date()}`);
+  next();// Pass to next handler (required!)
+});
+
+app.use((req, res, next) => {
+  //logs every request
+  console.log(`Hello, I am here to log every request`);
+  next();// Pass to next handler (required!)
+});
+app.post('/echo', (req, res) => {
+  //console.log(req.body);
+  res.json({echoed : req.body}); //req.body available
+
+});
+
+app.get('/search', (req, res) => {
+    const id = req.query.id;
+    console.log(id);
+    res.send(id);
+});
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`)
+});
+
+//=================
